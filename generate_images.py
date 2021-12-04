@@ -142,4 +142,7 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
+    if os.name == 'nt':
+        # https://stackoverflow.com/a/66772242
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     asyncio.run(main())
