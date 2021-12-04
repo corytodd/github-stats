@@ -118,6 +118,10 @@ async def main() -> None:
     excluded_langs = (
         {x.strip() for x in exclude_langs.split(",")} if exclude_langs else None
     )
+    exclude_prefixes = os.getenv("EXCLUDED_PREFIXES")
+    excluded_prefixes = (
+        {x.strip() for x in exclude_prefixes.split(",")} if exclude_prefixes else None
+    )
     # Convert a truthy value to a Boolean
     raw_ignore_forked_repos = os.getenv("EXCLUDE_FORKED_REPOS")
     ignore_forked_repos = (
@@ -131,6 +135,7 @@ async def main() -> None:
             session,
             exclude_repos=excluded_repos,
             exclude_langs=excluded_langs,
+            exclude_prefixes=excluded_prefixes,
             ignore_forked_repos=ignore_forked_repos,
         )
         await asyncio.gather(generate_languages(s), generate_overview(s))
